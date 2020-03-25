@@ -8,8 +8,8 @@ Azure DevOps extension to clone an additional Git repository and checkout a spec
 - Branch: Branch to checkout (or pull).
 - Clean: If ticked then (delete and) clone, else pull latest changes.
 ### V2
-- Fallback Branch: Branch to checkout (or pull) if normal Branch failes.
-- Base Branch: Branch to checkout (or pull) if Fallback Branch failes.
+- Fallback Branch: Branch to checkout (or pull) if initial Branch failes.
+- Base Branch: Branch to checkout (or pull) if fallback Branch failes.
 
 ## Requirements
 - Only for an additional Git repository in the same Azure DevOps organization.
