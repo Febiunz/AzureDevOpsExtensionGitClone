@@ -90,7 +90,11 @@ Function Update-GitRepository {
 
     Write-Host "Updating repository in $Path"
     Set-Location $Path | Out-Null
-    Invoke-VerboseCommand -Command { git fetch origin }
+
+    $SystemToken = Get-EnvironmentVariable -Name 'SYSTEM_ACCESSTOKEN'
+    Invoke-VerboseCommand -Command { git config credential.interactive never }
+
+    Invoke-VerboseCommand -Command { git -c http.extraheader="Authorization: bearer $SystemToken" fetch origin }
 
     $branch_to_update = ""
     If (Get-GitBranchExists -branch_name $Branch) {
@@ -105,9 +109,6 @@ Function Update-GitRepository {
     Else{
         throw "Execution failed: Branches not found on remote"
 	}
-
-    $SystemToken = Get-EnvironmentVariable -Name 'SYSTEM_ACCESSTOKEN'
-    Invoke-VerboseCommand -Command { git config credential.interactive never }
 
     Invoke-VerboseCommand -Command { git reset --hard origin/$branch_to_update }
     Invoke-VerboseCommand -Command { git -c http.extraheader="Authorization: bearer $SystemToken" pull origin $branch_to_update }
