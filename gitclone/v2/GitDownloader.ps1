@@ -90,13 +90,7 @@ Function Update-GitRepository {
 
     Write-Host "Updating repository in $Path"
     Set-Location $Path | Out-Null
-    
-    Write-Host "Undoing any pending changes in $Path"
-    Invoke-VerboseCommand -Command { 
-        git add .
-        git stash
-        git clean -fdx
-    }
+    Invoke-VerboseCommand -Command { git fetch origin }
 
     $branch_to_update = ""
     If (Get-GitBranchExists -branch_name $Branch) {
@@ -115,9 +109,8 @@ Function Update-GitRepository {
     $SystemToken = Get-EnvironmentVariable -Name 'SYSTEM_ACCESSTOKEN'
     Invoke-VerboseCommand -Command { git config credential.interactive never }
 
-    Write-Host "Checkout and pull branch $branch_to_update"
+    Invoke-VerboseCommand -Command { git reset --hard origin/$branch_to_update }
     Invoke-VerboseCommand -Command { git -c http.extraheader="Authorization: bearer $SystemToken" pull origin $branch_to_update }
-    Invoke-VerboseCommand -Command { git checkout $branch_to_update }
 }
 
 Function Clone-GitRepository {
