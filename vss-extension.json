@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "GitClone",
-  "version": "2.3.6",
+  "version": "2.4.0",
   "name": "Git Repository Clone",
   "publisher": "febiunz",
   "description": "Azure DevOps extension to clone an additional Git repository and checkout a specific branch.",
@@ -52,7 +52,7 @@
       "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/issues"
     },
     "privacypolicy": {
-      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/README.md"
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/PRIVACY.md"
     }
   },
   "repository": {

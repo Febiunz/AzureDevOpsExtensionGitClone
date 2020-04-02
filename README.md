@@ -18,3 +18,4 @@ Azure DevOps extension to clone an additional Git repository and checkout a spec
 - Agent machine should have Git installed in PATH environment variable or at %ProgramFiles%\Git (Azure Pipelines Agents work!).
 
 Inspired on an existing extension created by Fakhrulhilal Maktum: https://marketplace.visualstudio.com/items?itemName=fakhrulhilal-maktum.GitDownloader
+Privacy policy: https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/PRIVACY.md
