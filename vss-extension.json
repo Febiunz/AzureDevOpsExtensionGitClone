@@ -1,18 +1,10 @@
 {
   "manifestVersion": 1,
   "id": "GitClone",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "name": "Git Repository Clone",
   "publisher": "febiunz",
   "description": "Azure DevOps extension to clone an additional Git repository and checkout a specific branch.",
-  "tags": [
-    "clone",
-    "git",
-    "azure",
-    "devops",
-    "pipelines"
-  ],
-  "public": true,
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
@@ -24,6 +16,14 @@
   "categories": [
     "Azure Pipelines"
   ],
+  "tags": [
+    "clone",
+    "git",
+    "azure",
+    "devops",
+    "pipelines"
+  ],
+  "public": true,
   "content": {
     "details": {
       "path": "README.md"
@@ -31,6 +31,30 @@
     "license": {
       "path": "LICENSE"
     }
+  },
+  "links": {
+    "getstarted": {
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/README.md"
+    },
+    "issues": {
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/issues"
+    },
+    "learn": {
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/README.md"
+    },
+    "license": {
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/LICENSE"
+    },
+    "repository": {
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone"
+    },
+    "support": {
+      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/issues"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone"
   },
   "files": [
     {
@@ -49,23 +73,5 @@
         "name": "GitClone"
       }
     }
-  ],
-  "links": {
-    "learn": {
-      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/README.md"
-    },
-    "repository": {
-      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone"
-    },
-    "license": {
-      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/blob/master/LICENSE"
-    },
-    "issues": {
-      "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone/issues"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "uri": "https://github.com/Febiunz/AzureDevOpsExtensionGitClone"
-  }
+  ]
 }
