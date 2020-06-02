@@ -161,17 +161,20 @@ Function Save-GitRepository {
     $GitRepositoryUri = Get-GitRepositoryUri
     Write-Host "##vso[task.setvariable variable=Build.Repository.GitUri]$GitRepositoryUri"
     $RepositoryURL = $RepositoryURL -replace ([regex]::Escape('$(Build.Repository.GitUri)')), $GitRepositoryUri
+    $RepositoryName = $RepositoryURL.Substring($RepositoryURL.TrimEnd($Separator).LastIndexOf($Separator) + 1)
     
     $GitDirectory = Get-GitDirectory
     Write-Host "##vso[task.setvariable variable=Build.GitDirectory]$GitDirectory"
+    
+    $captured = [regex]::Match($RepositoryURL, '^(\w+:)?(?<separator>/|\\){1,2}')
+    $Separator = '/'
+    If ($captured.Success) {
+        $Separator = $captured.Groups['separator'].Value[0]
+    }
+    $RepositoryName = $RepositoryURL.Substring($RepositoryURL.TrimEnd($Separator).LastIndexOf($Separator) + 1)
+
     If ([string]::IsNullOrWhiteSpace($RepositoryPath)) {
-        $captured = [regex]::Match($RepositoryURL, '^(\w+:)?(?<separator>/|\\){1,2}')
-        $Separator = '/'
-        If ($captured.Success) {
-            $Separator = $captured.Groups['separator'].Value[0]
-        }
         # set default repository path
-        $RepositoryName = $RepositoryURL.Substring($RepositoryURL.TrimEnd($Separator).LastIndexOf($Separator) + 1)
         $RepositoryPath = "`$(Build.GitDirectory)\$RepositoryName"
     }
     $RepositoryPath = $RepositoryPath -replace ([regex]::Escape('$(Build.GitDirectory)')), $GitDirectory
