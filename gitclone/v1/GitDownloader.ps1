@@ -198,5 +198,7 @@ Function Save-GitRepository {
         Clone-GitRepository -Path "$RepositoryPath" -Uri "$RepositoryURL" -Branch $Branch
     }
 
+    Write-Host "##vso[task.setvariable variable=GitClone_$($RepositoryName);isOutput=true;]$($RepositoryPath)"
+
     Set-Location "$CurrentDirectory"
 }

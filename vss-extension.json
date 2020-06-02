@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "GitClone",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "name": "Git Repository Clone",
   "publisher": "febiunz",
   "description": "Azure DevOps extension to clone an additional Git repository and checkout a specific branch.",
