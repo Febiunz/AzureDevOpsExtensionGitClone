@@ -110,14 +110,19 @@ Function Clone-GitRepository {
     param(
         [string]$Path,
         [string]$Uri,
-        [string]$Branch
+        [string]$Branch,
+        [string]$Depth = ''
     )
 
     # try to use token provided by server
     $SystemToken = Get-EnvironmentVariable -Name 'SYSTEM_ACCESSTOKEN'
 
     Write-Host "Try cloning $Uri with branch '$Branch' into $Path"
-    Invoke-VerboseCommand -Command { git -c http.extraheader="Authorization: bearer $SystemToken" clone --progress -b $Branch "$Uri" "$Path" }
+    If (-not ([string]::IsNullOrWhiteSpace($Depth))) {
+        Invoke-VerboseCommand -Command { git -c http.extraheader="Authorization: bearer $SystemToken" clone --progress --depth $Depth -b $Branch "$Uri" "$Path" }
+    } Else {
+        Invoke-VerboseCommand -Command { git -c http.extraheader="Authorization: bearer $SystemToken" clone --progress -b $Branch "$Uri" "$Path" }
+    }
     If ($LastExitCode -ne 0) {
         Write-Error $output -ErrorAction Stop
     }
@@ -145,7 +150,12 @@ Function Save-GitRepository {
         [parameter(mandatory=$false)]
         [string]
         [ValidateSet('true', 'false', 'yes', 'no')]
-        $Clean = 'false'
+        $Clean = 'false',
+
+        # depth for shallow clone (optional)
+        [parameter(mandatory=$false)]
+        [string]
+        $Depth = ''
     )
     try {
         # try to find git in PATH environment
@@ -191,14 +201,14 @@ Function Save-GitRepository {
         If (@('true', 'yes').Contains($Clean.ToLower())) {
             Write-Host "Cleaning git folder $RepositoryPath"
             Remove-Item -Path "$RepositoryPath" -Recurse -Force | Out-Null
-            Clone-GitRepository -Path "$RepositoryPath" -Uri "$RepositoryURL" -Branch $Branch
+            Clone-GitRepository -Path "$RepositoryPath" -Uri "$RepositoryURL" -Branch $Branch -Depth $Depth
         }
         Else {
             Update-GitRepository -Path "$RepositoryPath" -Branch $Branch
         }
     }
     Else {
-        Clone-GitRepository -Path "$RepositoryPath" -Uri "$RepositoryURL" -Branch $Branch
+        Clone-GitRepository -Path "$RepositoryPath" -Uri "$RepositoryURL" -Branch $Branch -Depth $Depth
     }
 
     Write-Host "##vso[task.setvariable variable=$($RepositoryName);isOutput=true;]$($RepositoryPath)"
