@@ -105,10 +105,29 @@ The extension allows Azure DevOps pipelines to clone additional git repositories
 - OAuth token authentication using pipeline system token
 - Cross-platform support (Windows/Linux agents)
 
+## Versioning Guidelines
+When making changes to the extension, follow these versioning rules:
+
+### Task Version Updates
+- **Update task versions when source code is changed** in PowerShell scripts (GitClone.ps1, GitDownloader.ps1)
+- Task versions are in `gitclone/v1/task.json` and `gitclone/v2/task.json` under the `version` object
+- Follow semantic versioning: increment Minor for new features, Patch for bug fixes
+
+### Extension Version Updates  
+- **Update extension version when one of the task versions is updated**
+- Extension version is in `vss-extension.json` under the `version` field
+- The extension version should align with the highest task version (typically v2)
+
+### Version Synchronization
+- V1 task maintains its own version line (currently 1.x.x)
+- V2 task version should match the extension version (currently 2.x.x)
+- When updating versions, increment at the same level (minor or patch) across all components
+
 ## Development Workflow
 1. Make changes to PowerShell scripts in gitclone/v1/ or gitclone/v2/
 2. Validate PowerShell syntax using the validation command
 3. Test extension packaging with tfx-cli
 4. Update task.json files if adding new parameters
 5. Update vss-extension.json if changing extension metadata
-6. Clean up any generated .vsix files before committing
+6. **Update versions following the versioning guidelines above**
+7. Clean up any generated .vsix files before committing
