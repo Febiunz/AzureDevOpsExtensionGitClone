@@ -7,9 +7,11 @@ Azure DevOps extension to clone an additional Git repository and checkout a spec
 - Repository Path: Full path to store the git repository. If empty then default working folder.
 - Branch: Branch to checkout (or pull).
 - Clean: If ticked then (delete and) clone, else pull latest changes.
+- Depth: Create a shallow clone with a history truncated to the specified number of commits. Leave empty for full clone.
 ### V2
 - Fallback Branch: Branch to checkout (or pull) if initial Branch failes.
 - Base Branch: Branch to checkout (or pull) if fallback Branch failes.
+- Depth: Create a shallow clone with a history truncated to the specified number of commits. Leave empty for full clone.
 
 ## Requirements
 - Only for an additional Git repository in the same Azure DevOps organization.
