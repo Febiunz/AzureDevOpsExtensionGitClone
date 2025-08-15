@@ -62,6 +62,14 @@
       "defaultValue": "false",
       "required": false,
       "helpMarkDown": "If ticked then (delete and) clone, else pull latest changes."
+    },
+    {
+      "name": "Depth",
+      "type": "string",
+      "label": "Depth",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Create a shallow clone with a history truncated to the specified number of commits. Leave empty for full clone."
     }
   ],
   "execution": {
