@@ -9,7 +9,6 @@ The `publish-extension.yml` workflow automates the process of packaging and publ
 The workflow can be triggered in two ways:
 
 1. **Manual Dispatch**: Manually trigger the workflow from the GitHub Actions tab
-   - Optional input: Version to publish (defaults to version in `vss-extension.json`)
 
 2. **Release Published**: Automatically triggered when a GitHub release is published
 
@@ -55,8 +54,7 @@ To manually trigger the workflow:
 1. Go to the "Actions" tab in your GitHub repository
 2. Select "Publish Extension to Marketplace" workflow
 3. Click "Run workflow"
-4. (Optional) Enter a version number to override the version in `vss-extension.json`
-5. Click "Run workflow"
+4. Click "Run workflow" (the workflow will use the version from `vss-extension.json`)
 
 ### Automatic Execution on Release
 

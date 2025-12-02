@@ -2,11 +2,6 @@ name: Publish Extension to Marketplace
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to publish (leave empty to use version from vss-extension.json)'
-        required: false
-        default: ''
   release:
     types: [published]
 
