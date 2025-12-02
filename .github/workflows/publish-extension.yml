@@ -1,0 +1,55 @@
+name: Publish Extension to Marketplace
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      
+      - name: Install tfx-cli
+        run: npm install -g tfx-cli
+      
+      - name: Package extension
+        run: |
+          tfx extension create --root . --manifest-globs vss-extension.json --output-path ./dist
+        
+      - name: Publish extension
+        env:
+          PUBLISHER_PAT: ${{ secrets.AZURE_DEVOPS_PUBLISHER_PAT }}
+        run: |
+          # Find the generated VSIX file
+          VSIX_FILE=$(find ./dist -name "*.vsix" | head -n 1)
+          
+          if [ -z "$VSIX_FILE" ]; then
+            echo "Error: No VSIX file found in ./dist"
+            exit 1
+          fi
+          
+          echo "Publishing VSIX file: $VSIX_FILE"
+          
+          # Publish the extension
+          tfx extension publish \
+            --vsix "$VSIX_FILE" \
+            --auth-type pat \
+            --token "$PUBLISHER_PAT"
+      
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-vsix
+          path: ./dist/*.vsix
+          if-no-files-found: error
